@@ -3,6 +3,7 @@ import { View, Animated, Text } from 'react-native';
 
 import { TextButton } from '../../components';
 import { COLORS, SIZES, constants, FONTS } from '../../constants';
+import Walkthrough1 from './Walkthrough1';
 
 const Walkthrough = () => {
 
@@ -123,7 +124,14 @@ const Walkthrough = () => {
               }}
             >
               {/* Walkthrough Images */}
-              <View style={{ flex: 1 }}></View>
+              <View 
+                style={{ 
+                  flex: 1,
+                  justifyContent: 'center' 
+                }}
+              >
+                { index == 0 && <Walkthrough1/> }
+              </View>
 
               {/* Title & Descriptions */}
               <View
