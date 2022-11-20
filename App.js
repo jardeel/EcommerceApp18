@@ -26,7 +26,7 @@ import {
   Poppins_100Thin_Italic
 } from '@expo-google-fonts/poppins';
 
-import { Welcome, Walkthrough } from './src/screens';
+import { Welcome, Walkthrough, AuthMain } from './src/screens';
 import TextButton from './src/components/TextButton';
 
 const Stack = createStackNavigator();
@@ -65,6 +65,7 @@ export default App = () => {
         >
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Walkthrough" component={Walkthrough} />
+          <Stack.Screen name="AuthMain" component={AuthMain} />
         </Stack.Navigator>
       </NavigationContainer>
     )

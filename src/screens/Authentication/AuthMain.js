@@ -1,99 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { useState } from 'react';
+import { 
+  View, 
+  Text, 
+  Image, 
+  Modal, 
+  FlatList, 
+  TouchableOpacity, 
+  TouchableWithoutFeedback, 
+  StyleSheet 
+} from 'react-native';
 
-import { CountryDropdown } from '../../components';
+import { TextButton } from '../../components';
+import { icons, images, COLORS, FONTS, SIZES } from '../../constants';
 
 const AuthMain = () => {
+  const [mode, setMode] = useState('signIn');
 
-  //country
-  const [countries, setCountries] = useState([]);
-  const [showCountryModal, setCountryModal] = useState(false);
+  function renderSignIn(){}
 
-  useEffect(() => {
-    //Fetch countries
-    fetch("https://restcountries.com/v2/all")
-      .then(response => response.json())
-      .then(data => {
-        let countryData = data.map(item => {
-          return {
-            code: item.alpha2Code,
-            name: item.name,
-            callingCode: `+${item.callingCodes[0]}`,
-            flag: `https://countryflagsapi.com/png/${item.alpha2Code}`
-          }
-        })
+  function renderSignUp(){}
 
-        setCountries(countryData)
-      })
-  }, [])
-
-  //Render
-  function renderCountryModal() {
-    reutrn (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showCountryModal}
-      >
-        <TouchableWithoutFeedback onPress={setCountryModal(false)}/>
-        <View
-          style={{
-            height: 400,
-            width: SIZES.width * 0.8,
-            backgroundColor: COLORS.light,
-            borderRadius: SIZES.radius
-          }}
-        >
-          <FlatList
-            data={countries}
-            keyExtractor={(item) => item.code}
-            contentContainerStyle={{
-              paddingHorizontal: SIZES.padding,
-              paddingBottom: SIZES.padding
-            }}
-            renderItem={({ item }) => {
-              return (
-                <TouchebleOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: SIZES.radius
-                  }}
-                  onPress={() => {
-                    console.log(item)
-                    setSelectedCountry(item)
-                    setCountryModal(false)
-                  }}
-                >
-                  <Image
-                    source={{ uri: item.flag }}
-                    resizeMode="contain"
-                    style={{
-                      width: 40,
-                      height: 30
-                    }}
-                  />
-                  <Text 
-                    style={{
-                      flex: 1,
-                      marginLeft: SIZES.radius,
-                      ...FontFaceSet.body3
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                </TouchebleOpacity>
-              )
-            }}
-          />
-        </View>
-      </Modal>
-    )
+  function renderAuthContainer() {
+    if(mode == "signIn"){
+      return renderSignIn()
+    } else {
+      return renderSignUp()
+    }
   }
 
-
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+        paddingHorizontal: SIZES.padding,
+        backgroundColor: COLORS.lightGrey
+      }}
+    >
+      <Image
+        source={images.logo}
+        style={{
+          alignSelf: 'center',
+          marginTop: SIZES.padding * 2,
+          width: 50,
+          height: 50
+        }}
+      />
+
+      <View>
+        {renderAuthContainer()}
+      </View>
 
     </View>
   )
